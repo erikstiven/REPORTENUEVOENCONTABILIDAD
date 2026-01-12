@@ -30,7 +30,7 @@ function consultar( $aForm='' ){
 		$oReturn = new xajaxResponse();
         $user_web   = $_SESSION['U_ID']; 
 		$idempresa   = $aForm['empresa'];
-	    $idsucursal  = $aForm['sucursal'];
+	    $idsucursal  = isset($aForm['sucursal']) ? $aForm['sucursal'] : '';
 		$anio        = $aForm['anio'];        
         $mes         = $aForm['mes'];
         $mes_fin     = $aForm['mes_fin'];
@@ -38,11 +38,14 @@ function consultar( $aForm='' ){
 		$cuenta_fin  = $aForm['cuenta_fin'];
         $cact_ini    = $aForm['ccostos_ini'];
 		$cact_fin    = $aForm['ccostos_fin'];
+		$moneda      = isset($aForm['moneda']) ? $aForm['moneda'] : '';
 		
 		$periodo	= $aForm['periodo'];
 		$fechas		= $aForm['fechas'];
-		$fechaInicio= fecha_informix_func($aForm['fechaInicio']);
-		$fechaFinal	= fecha_informix_func($aForm['fechaFinal']);
+		$fechaInicioRaw = isset($aForm['fechaInicio']) ? $aForm['fechaInicio'] : '';
+		$fechaFinalRaw = isset($aForm['fechaFinal']) ? $aForm['fechaFinal'] : '';
+		$fechaInicio= fecha_informix_func($fechaInicioRaw);
+		$fechaFinal	= fecha_informix_func($fechaFinalRaw);
 		
 		//echo 'Periodo: '.$periodo.' - Fechas: '.$fechas; exit;		
 		$sql = "select prdo_cod_ejer, prdo_fec_ini, prdo_nom_prdo 
@@ -98,7 +101,41 @@ function consultar( $aForm='' ){
 					}
 				}	
 		$oIfx->Free();        
-        try {
+		try {
+			$empresaNombre = consulta_string_func("select empr_nom_empr from saeempr where empr_cod_empr = $idempresa", 'empr_nom_empr', $oIfx, '');
+			$sucursalNombre = '';
+			if (!empty($idsucursal)) {
+				$sucursalNombre = consulta_string_func("select sucu_nom_sucu from saesucu where sucu_cod_empr = $idempresa and sucu_cod_sucu = $idsucursal", 'sucu_nom_sucu', $oIfx, '');
+			}
+			if (empty($sucursalNombre) && !empty($_SESSION['U_SUCURSAL'])) {
+				$sucuSesion = $_SESSION['U_SUCURSAL'];
+				$sucursalNombre = consulta_string_func("select sucu_nom_sucu from saesucu where sucu_cod_empr = $idempresa and sucu_cod_sucu = $sucuSesion", 'sucu_nom_sucu', $oIfx, '');
+			}
+			$monedaNombre = '';
+			if (!empty($moneda)) {
+				$monedaNombre = consulta_string_func("select mone_des_mone from saemone where mone_cod_empr = $idempresa and mone_cod_mone = '$moneda'", 'mone_des_mone', $oIfx, '');
+			}
+			$descripcionPeriodo = '';
+			if ($periodo == "A") {
+				$descripcionPeriodo = 'Periodo: ' . $nombreMesI . ' ' . $anio . ' - ' . $nombreMesF . ' ' . $anio;
+			} else {
+				$descripcionPeriodo = 'Fechas: ' . $fechaInicioRaw . ' al ' . $fechaFinalRaw;
+			}
+			$fechaGenerado = date('d/m/Y H:i');
+			$headerPdf = '<table cellpadding="2" cellspacing="0" style="width: 100%; border-bottom: 1px solid #000;">
+				<tr>
+					<td style="font-size: 12px; font-weight: bold;">' . $empresaNombre . '</td>
+					<td style="font-size: 10px; text-align: right;">' . $descripcionPeriodo . '</td>
+				</tr>
+				<tr>
+					<td style="font-size: 11px; font-weight: bold;">REPORTE MAYOR POR FLUJO DE CAJA</td>
+					<td style="font-size: 10px; text-align: right;">Sucursal: ' . $sucursalNombre . '</td>
+				</tr>
+				<tr>
+					<td style="font-size: 10px;">Moneda: ' . $monedaNombre . '</td>
+					<td style="font-size: 10px; text-align: right;">Generado: ' . $fechaGenerado . '</td>
+				</tr>
+			</table><br>';
 
 				$sql = "  SELECT DISTINCT (saedasi.dasi_cod_cuen ),
 				date('$fechaInicio') asto_fec_asto,   
@@ -354,8 +391,9 @@ function consultar( $aForm='' ){
         //unset($_SESSION['sHtml_det']);
         //$_SESSION['sHtml_det'] = $html;
 
-        unset($_SESSION['pdf']);    
-        $_SESSION['pdf'] = $html;
+		unset($_SESSION['pdf']);    
+		$_SESSION['pdf'] = $html;
+		$_SESSION['pdf_header'] = $headerPdf;
 
         $oReturn->script("jsRemoveWindowLoad();");
         return $oReturn;

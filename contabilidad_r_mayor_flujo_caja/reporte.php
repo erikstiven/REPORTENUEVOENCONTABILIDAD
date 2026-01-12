@@ -110,6 +110,11 @@
     function abrir() {
         document.location = "../conta_r_est_result_centro_actividad/excel.php";
     }
+
+    function imprimirPdf() {
+        var pagina = '../../Include/documento_pdf3_mayor_flujo_caja.php?sesionId=<?= session_id() ?>';
+        window.open(pagina, '_blank');
+    }
 </script>
 <body>
         <div class="row" id="Div_Principal">
@@ -215,6 +220,10 @@
                                 <div class="btn btn-primary btn-sm" onclick="abrir()" >
                                     <span class="glyphicon glyphicon-print"></span>
                                     Excel
+                                </div>
+                                <div class="btn btn-primary btn-sm" onclick="imprimirPdf()" >
+                                    <span class="glyphicon glyphicon-print"></span>
+                                    Imprimir
                                 </div>
                             </div>                
                     </div>                  

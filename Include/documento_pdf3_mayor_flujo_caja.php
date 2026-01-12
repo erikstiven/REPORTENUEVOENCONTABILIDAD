@@ -1,0 +1,37 @@
+<?php
+include_once('config.inc.php');
+include_once(path(DIR_INCLUDE) . 'comun.lib.php');
+
+require_once('../contabilidad_r_mayor_flujo_caja/reader/Classes/PHPExcel/Shared/PDF/tcpdf.php');
+
+$sesionId = isset($_GET['sesionId']) ? $_GET['sesionId'] : '';
+if (!empty($sesionId) && session_status() !== PHP_SESSION_ACTIVE) {
+    session_id($sesionId);
+}
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+$htmlBody = isset($_SESSION['pdf']) ? $_SESSION['pdf'] : '';
+$htmlHeader = isset($_SESSION['pdf_header']) ? $_SESSION['pdf_header'] : '';
+$html = '<style>
+    body { font-family: Helvetica, Arial, sans-serif; font-size: 9pt; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #000; padding: 4px; font-size: 9pt; }
+    .bg-primary { background-color: #e6e6e6; font-weight: bold; text-align: center; }
+    .bg-info { background-color: #f2f2f2; font-weight: bold; }
+</style>';
+$html .= $htmlHeader . $htmlBody;
+
+$pdf = new TCPDF('L', 'mm', 'A4', true, 'UTF-8', false);
+$pdf->SetCreator('REPORTENUEVOENCONTABILIDAD');
+$pdf->SetAuthor('REPORTENUEVOENCONTABILIDAD');
+$pdf->SetTitle('Mayor por Flujo de Caja');
+$pdf->SetMargins(10, 10, 10);
+$pdf->SetAutoPageBreak(true, 10);
+$pdf->setPrintHeader(false);
+$pdf->setPrintFooter(false);
+$pdf->AddPage();
+$pdf->writeHTML($html, true, false, true, false, '');
+
+$pdf->Output('mayor_flujo_caja.pdf', 'I');
