@@ -216,6 +216,10 @@
                                     <span class="glyphicon glyphicon-print"></span>
                                     Excel
                                 </div>
+                                <div class="btn btn-primary btn-sm" onclick="return false;">
+                                    <span class="glyphicon glyphicon-print"></span>
+                                    Imprimir
+                                </div>
                             </div>                
                     </div>                  
 
