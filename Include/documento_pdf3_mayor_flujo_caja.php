@@ -74,7 +74,7 @@ $pdf->SetMargins(10, 30, 10);
 $pdf->SetAutoPageBreak(true, 12);
 $pdf->AliasNbPages();
 $pdf->AddPage();
-$pdf->SetFont('helvetica', '', 8);
+$pdf->SetFont('helvetica', '', 7);
 $pdf->IncludeJS('print(true);');
 $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->Output('reporte.pdf', 'I');

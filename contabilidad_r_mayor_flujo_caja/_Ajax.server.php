@@ -248,16 +248,26 @@ function consultar( $aForm='' ){
 							<td class="bg-primary" align = "center"> Saldo </td>
 						</tr>';
 
-                $html_pdf .= '<table border="1" cellpadding="4" cellspacing="0" width="100%">';
+                $html_pdf .= '<table border="1" cellpadding="3" cellspacing="0" width="100%">';
+                $html_pdf .= '<colgroup>'
+                    .'<col width="10%">'
+                    .'<col width="6%">'
+                    .'<col width="14%">'
+                    .'<col width="18%">'
+                    .'<col width="30%">'
+                    .'<col width="7%">'
+                    .'<col width="7%">'
+                    .'<col width="8%">'
+                    .'</colgroup>';
                 $html_pdf .= '<tr>'
-                    .'<th>Fecha</th>'
-                    .'<th>Tipo</th>'
-                    .'<th>No. Comprobante</th>'
-                    .'<th>Beneficiario</th>'
-                    .'<th>Detalles</th>'
-                    .'<th>Debito</th>'
-                    .'<th>Credito</th>'
-                    .'<th>Saldo</th>'
+                    .'<th style="text-align:center; font-size:8px;">Fecha</th>'
+                    .'<th style="text-align:center; font-size:8px;">Tipo</th>'
+                    .'<th style="text-align:center; font-size:8px;">No. Comprobante</th>'
+                    .'<th style="text-align:center; font-size:8px;">Beneficiario</th>'
+                    .'<th style="text-align:center; font-size:8px;">Detalles</th>'
+                    .'<th style="text-align:center; font-size:8px;">Debito</th>'
+                    .'<th style="text-align:center; font-size:8px;">Credito</th>'
+                    .'<th style="text-align:center; font-size:8px;">Saldo</th>'
                     .'</tr>';
 			//CENTRO DE COSTOS
 			/*if($oIfx->Query($sql)){
@@ -289,12 +299,12 @@ function consultar( $aForm='' ){
 										<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
 										<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
 									</tr>';
-                            $html_pdf .= '<tr><td colspan="8"><strong>'
+                            $html_pdf .= '<tr><td colspan="8" style="font-size:7px;"><strong>'
                                 .html_safe($oIfx->f('cact_cod_cact')).' '.html_safe($oIfx->f('cact_nom_cact'))
                                 .'</strong></td></tr>';
-                            $html_pdf .= '<tr><td colspan="4">'
+                            $html_pdf .= '<tr><td colspan="4" style="font-size:7px;">'
                                 .html_safe($oIfx->f('dasi_cod_cuen')).' '.html_safe($arrayCuenta[$oIfx->f('dasi_cod_cuen')])
-                                .'</td><td colspan="4" style="text-align:right;">SALDO ANTERIOR: '
+                                .'</td><td colspan="4" style="text-align:right; font-size:7px;">SALDO ANTERIOR: '
                                 .number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',')
                                 .'</td></tr>';
 							$anterior = $oIfx->f('cact_cod_cact');
@@ -318,16 +328,16 @@ function consultar( $aForm='' ){
 											<td style="text-align:right;"> '.number_format( round($oIfx->f('dasi_cml_dasi'),2),2,'.',',').' </td>
 											<td style="text-align:right;"> '.number_format( round($saldoCuenta,2),2,'.',',').' </td>												
 										</tr>';
-                                $html_pdf .= '<tr><td></td><td colspan="7">'.html_safe($arrayMes[$mesAnterior]).'</td></tr>';
+                                $html_pdf .= '<tr><td></td><td colspan="7" style="font-size:7px;">Mes: '.html_safe($arrayMes[$mesAnterior]).'</td></tr>';
                                 $html_pdf .= '<tr>'
-                                    .'<td>'.html_safe($oIfx->f('asto_fec_asto')).'</td>'
-                                    .'<td>'.html_safe($oIfx->f('asto_tipo_mov')).'</td>'
-                                    .'<td>'.html_safe($oIfx->f('asto_num_mayo')).'</td>'
-                                    .'<td>'.html_safe($oIfx->f('asto_ben_asto')).'</td>'
-                                    .'<td>'.html_safe($oIfx->f('dasi_det_asi')).'</td>'
-                                    .'<td style="text-align:right;">'.number_format( round($oIfx->f('dasi_dml_dasi'),2),2,'.',',').'</td>'
-                                    .'<td style="text-align:right;">'.number_format( round($oIfx->f('dasi_cml_dasi'),2),2,'.',',').'</td>'
-                                    .'<td style="text-align:right;">'.number_format( round($saldoCuenta,2),2,'.',',').'</td>'
+                                    .'<td style="font-size:7px;">'.html_safe($oIfx->f('asto_fec_asto')).'</td>'
+                                    .'<td style="font-size:7px; text-align:center;">'.html_safe($oIfx->f('asto_tipo_mov')).'</td>'
+                                    .'<td style="font-size:7px;">'.html_safe($oIfx->f('asto_num_mayo')).'</td>'
+                                    .'<td style="font-size:7px;">'.html_safe($oIfx->f('asto_ben_asto')).'</td>'
+                                    .'<td style="font-size:7px;">'.html_safe($oIfx->f('dasi_det_asi')).'</td>'
+                                    .'<td style="font-size:7px; text-align:right;">'.number_format( round($oIfx->f('dasi_dml_dasi'),2),2,'.',',').'</td>'
+                                    .'<td style="font-size:7px; text-align:right;">'.number_format( round($oIfx->f('dasi_cml_dasi'),2),2,'.',',').'</td>'
+                                    .'<td style="font-size:7px; text-align:right;">'.number_format( round($saldoCuenta,2),2,'.',',').'</td>'
                                     .'</tr>';
 								$saldoAnterior = $saldoCuenta;
 							}
@@ -358,17 +368,17 @@ function consultar( $aForm='' ){
 												<td style="text-align:right;"> '.number_format( round($saldoCuenta,2),2,'.',',').' </td>												
 											</tr>';
                                     if ( $mesActual != $mesAnterior) {
-                                        $html_pdf .= '<tr><td></td><td colspan="7">'.html_safe($arrayMes[$mesActual]).'</td></tr>';
+                                        $html_pdf .= '<tr><td></td><td colspan="7" style="font-size:7px;">Mes: '.html_safe($arrayMes[$mesActual]).'</td></tr>';
                                     }
                                     $html_pdf .= '<tr>'
-                                        .'<td>'.html_safe($oIfx->f('asto_fec_asto')).'</td>'
-                                        .'<td>'.html_safe($oIfx->f('asto_tipo_mov')).'</td>'
-                                        .'<td>'.html_safe($oIfx->f('asto_num_mayo')).'</td>'
-                                        .'<td>'.html_safe($oIfx->f('asto_ben_asto')).'</td>'
-                                        .'<td>'.html_safe($oIfx->f('dasi_det_asi')).'</td>'
-                                        .'<td style="text-align:right;">'.number_format( round($oIfx->f('dasi_dml_dasi'),2),2,'.',',').'</td>'
-                                        .'<td style="text-align:right;">'.number_format( round($oIfx->f('dasi_cml_dasi'),2),2,'.',',').'</td>'
-                                        .'<td style="text-align:right;">'.number_format( round($saldoCuenta,2),2,'.',',').'</td>'
+                                        .'<td style="font-size:7px;">'.html_safe($oIfx->f('asto_fec_asto')).'</td>'
+                                        .'<td style="font-size:7px; text-align:center;">'.html_safe($oIfx->f('asto_tipo_mov')).'</td>'
+                                        .'<td style="font-size:7px;">'.html_safe($oIfx->f('asto_num_mayo')).'</td>'
+                                        .'<td style="font-size:7px;">'.html_safe($oIfx->f('asto_ben_asto')).'</td>'
+                                        .'<td style="font-size:7px;">'.html_safe($oIfx->f('dasi_det_asi')).'</td>'
+                                        .'<td style="font-size:7px; text-align:right;">'.number_format( round($oIfx->f('dasi_dml_dasi'),2),2,'.',',').'</td>'
+                                        .'<td style="font-size:7px; text-align:right;">'.number_format( round($oIfx->f('dasi_cml_dasi'),2),2,'.',',').'</td>'
+                                        .'<td style="font-size:7px; text-align:right;">'.number_format( round($saldoCuenta,2),2,'.',',').'</td>'
                                         .'</tr>';
 											$saldoAnterior = $saldoCuenta;
 								} else {
@@ -376,9 +386,9 @@ function consultar( $aForm='' ){
 													<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
 													<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
 												</tr>';
-                                        $html_pdf .= '<tr><td colspan="4">'
+                                        $html_pdf .= '<tr><td colspan="4" style="font-size:7px;">'
                                             .html_safe($oIfx->f('dasi_cod_cuen')).' '.html_safe($arrayCuenta[$oIfx->f('dasi_cod_cuen')])
-                                            .'</td><td colspan="4" style="text-align:right;">SALDO ANTERIOR: '
+                                            .'</td><td colspan="4" style="text-align:right; font-size:7px;">SALDO ANTERIOR: '
                                             .number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',')
                                             .'</td></tr>';
 										$saldoAnterior = $oIfx->f('saldo_anterior');
@@ -387,7 +397,7 @@ function consultar( $aForm='' ){
 													<td> </td>
 													<td colspan="7"> '.$arrayMes[$mesActual].' </td>
 												</tr>';											
-                                        $html_pdf .= '<tr><td></td><td colspan="7">'.html_safe($arrayMes[$mesActual]).'</td></tr>';
+                                        $html_pdf .= '<tr><td></td><td colspan="7" style="font-size:7px;">Mes: '.html_safe($arrayMes[$mesActual]).'</td></tr>';
 								}
 
 							} else {
@@ -398,12 +408,12 @@ function consultar( $aForm='' ){
 											<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
 											<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
 										</tr>';
-                                $html_pdf .= '<tr><td colspan="8"><strong>'
+                                $html_pdf .= '<tr><td colspan="8" style="font-size:7px;"><strong>'
                                     .html_safe($oIfx->f('cact_cod_cact')).' '.html_safe($oIfx->f('cact_nom_cact'))
                                     .'</strong></td></tr>';
-                                $html_pdf .= '<tr><td colspan="4">'
+                                $html_pdf .= '<tr><td colspan="4" style="font-size:7px;">'
                                     .html_safe($oIfx->f('dasi_cod_cuen')).' '.html_safe($arrayCuenta[$oIfx->f('dasi_cod_cuen')])
-                                    .'</td><td colspan="4" style="text-align:right;">SALDO ANTERIOR: '
+                                    .'</td><td colspan="4" style="text-align:right; font-size:7px;">SALDO ANTERIOR: '
                                     .number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',')
                                     .'</td></tr>';
 							}
@@ -424,10 +434,10 @@ function consultar( $aForm='' ){
 					</tr>
 					</table>';
             $html_pdf .= '<tr>'
-                .'<td colspan="5" style="text-align:right;">TOTAL GENERAL:</td>'
-                .'<td style="text-align:right;">'.number_format( round($sumaDebito,2),2,'.',',').'</td>'
-                .'<td style="text-align:right;">'.number_format( round($sumaCredito,2),2,'.',',').'</td>'
-                .'<td style="text-align:right;">'.number_format( round($saldoCuenta,2),2,'.',',').'</td>'
+                .'<td colspan="5" style="text-align:right; font-size:7px;">TOTAL GENERAL:</td>'
+                .'<td style="text-align:right; font-size:7px;">'.number_format( round($sumaDebito,2),2,'.',',').'</td>'
+                .'<td style="text-align:right; font-size:7px;">'.number_format( round($sumaCredito,2),2,'.',',').'</td>'
+                .'<td style="text-align:right; font-size:7px;">'.number_format( round($saldoCuenta,2),2,'.',',').'</td>'
                 .'</tr>';
             $html_pdf .= '</table>';
 			$oReturn->assign("divFormularioDetalle","innerHTML",$html);
