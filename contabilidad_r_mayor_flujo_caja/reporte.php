@@ -113,7 +113,7 @@
 
     function generar_pdf_mayor_flujo_caja() {
         var opciones = "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, width=730, height=.370, top=255, left=130";
-        var pagina = '../../Include/documento_pdf3.php?sesionId=<?= session_id() ?>';
+        var pagina = '../../Include/documento_pdf3_mayor_flujo_caja.php?sesionId=<?= session_id() ?>';
         window.open(pagina, "", opciones);
     }
 </script>
