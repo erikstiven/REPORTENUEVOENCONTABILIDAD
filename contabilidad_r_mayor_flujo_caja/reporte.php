@@ -110,6 +110,12 @@
     function abrir() {
         document.location = "../conta_r_est_result_centro_actividad/excel.php";
     }
+
+    function generar_pdf_mayor_flujo_caja() {
+        var opciones = "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, width=730, height=.370, top=255, left=130";
+        var pagina = '../../Include/documento_pdf3_mayor_flujo_caja.php?sesionId=<?= session_id() ?>';
+        window.open(pagina, "", opciones);
+    }
 </script>
 <body>
         <div class="row" id="Div_Principal">
@@ -215,6 +221,10 @@
                                 <div class="btn btn-primary btn-sm" onclick="abrir()" >
                                     <span class="glyphicon glyphicon-print"></span>
                                     Excel
+                                </div>
+                                <div class="btn btn-primary btn-sm" onclick="generar_pdf_mayor_flujo_caja()">
+                                    <span class="glyphicon glyphicon-print"></span>
+                                    Imprimir
                                 </div>
                             </div>                
                     </div>                  
