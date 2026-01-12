@@ -47,6 +47,21 @@ function consultar( $aForm='' ){
 		$fechas		= $aForm['fechas'];
 		$fechaInicio= fecha_informix_func($aForm['fechaInicio']);
 		$fechaFinal	= fecha_informix_func($aForm['fechaFinal']);
+		$fechaImpresion = date('d/m/Y');
+		$horaImpresion = date('H:i:s');
+
+		$empresaNombre = '';
+		$empresaDireccion = '';
+		$empresaRuc = '';
+		$sqlEmpresa = "select * from saeempr where empr_cod_empr = $idempresa";
+		if ($oIfx->Query($sqlEmpresa)) {
+			if ($oIfx->NumFilas() > 0) {
+				$empresaNombre = $oIfx->f('empr_nom_empr');
+				$empresaDireccion = $oIfx->f('empr_dir_empr');
+				$empresaRuc = $oIfx->f('empr_ruc_empr');
+			}
+		}
+		$oIfx->Free();
 		
 		//echo 'Periodo: '.$periodo.' - Fechas: '.$fechas; exit;		
 		$sql = "select prdo_cod_ejer, prdo_fec_ini, prdo_nom_prdo 
@@ -233,8 +248,6 @@ function consultar( $aForm='' ){
 							<td class="bg-primary" align = "center"> Saldo </td>
 						</tr>';
 
-                $html_pdf .= '<h3>REPORTE MAYOR POR FLUJO DE CAJA</h3>';
-                $html_pdf .= '<p>Desde: '.html_safe($fechaInicio).' Hasta: '.html_safe($fechaFinal).'</p>';
                 $html_pdf .= '<table border="1" cellpadding="4" cellspacing="0" width="100%">';
                 $html_pdf .= '<tr>'
                     .'<th>Fecha</th>'
@@ -430,6 +443,16 @@ function consultar( $aForm='' ){
 
         unset($_SESSION['pdf']);    
         $_SESSION['pdf'] = $html_pdf;
+		$_SESSION['pdf_header'] = array(
+			'empresa' => $empresaNombre,
+			'direccion' => $empresaDireccion,
+			'ruc' => $empresaRuc,
+			'fecha' => $fechaImpresion,
+			'hora' => $horaImpresion,
+			'desde' => $fechaInicio,
+			'hasta' => $fechaFinal,
+			'titulo' => 'MAYOR POR FLUJO DE CAJA'
+		);
 
         $oReturn->script("jsRemoveWindowLoad();");
         return $oReturn;
