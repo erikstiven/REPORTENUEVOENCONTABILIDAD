@@ -275,26 +275,16 @@ function consultar( $aForm='' ){
 				//unset ($_SESSION['ACT_REPORTE']);
 			
 					$html.='</br>
-						<table class="table table-condensed report-table" style="width: 100%; margin: 0;">
-						<colgroup>
-							<col style="width: 11%;">
-							<col style="width: 7%;">
-							<col style="width: 14%;">
-							<col style="width: 14%;">
-							<col style="width: 22%;">
-							<col style="width: 10%;">
-							<col style="width: 10%;">
-							<col style="width: 12%;">
-						</colgroup>
+						<table class="table table-bordered table-striped table-condensed" style="width: 98%; margin-bottom: 0px; margin-left: 10px;">
 						<tr>						
-							<td class="report-head report-head-left"> Fecha </td>
-							<td class="report-head report-head-center"> Tipo </td>
-							<td class="report-head report-head-center"> No Comp </td>
-							<td class="report-head report-head-left"> Beneficiario </td>
-							<td class="report-head report-head-left"> Detalle </td>
-							<td class="report-head report-head-center"> Debito </td>
-							<td class="report-head report-head-center"> Credito </td>
-							<td class="report-head report-head-center"> Saldo </td>
+							<td class="bg-primary" align = "center"> Fecha </td>
+							<td class="bg-primary" align = "center"> Tipo </td>
+							<td class="bg-primary" align = "center"> No. Comprobante </td>
+							<td class="bg-primary" align = "center"> Beneficiario </td>
+							<td class="bg-primary" align = "center"> Detalles </td>
+							<td class="bg-primary" align = "center"> Debito </td>
+							<td class="bg-primary" align = "center"> Credito </td>
+							<td class="bg-primary" align = "center"> Saldo </td>
 						</tr>';
 			//CENTRO DE COSTOS
 			/*if($oIfx->Query($sql)){
@@ -321,7 +311,7 @@ function consultar( $aForm='' ){
 									$html.='<tr>
 												<td class="bg-info" colspan="8"> '.$oIfx->f('cact_cod_cact').' '.$oIfx->f('cact_nom_cact').' </td>
 											</tr>
-											<tr class="report-saldo">											
+											<tr>											
 												<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
 												<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
 											</tr>';
@@ -376,7 +366,7 @@ function consultar( $aForm='' ){
 											</tr>';
 											$saldoAnterior = $saldoCuenta;
 								} else {
-										$html.='<tr class="report-saldo">													
+										$html.='<tr>													
 													<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
 													<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
 												</tr>';
@@ -392,10 +382,10 @@ function consultar( $aForm='' ){
 								$html.='<tr>
 											<td class="bg-info" colspan="8"> '.$oIfx->f('cact_cod_cact').' '.$oIfx->f('cact_nom_cact').' </td>
 										</tr>
-										<tr class="report-saldo">										
-											<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
-											<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
-										</tr>';
+											<tr>										
+												<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
+												<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
+											</tr>';
 							}
 							$anterior = $oIfx->f('cact_cod_cact');
 							$cuentaAnterior = $oIfx->f('dasi_cod_cuen');
