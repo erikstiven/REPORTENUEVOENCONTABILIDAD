@@ -124,7 +124,7 @@ function consultar( $aForm='' ){
 			$fechaGenerado = date('d/m/Y H:i');
 			$headerPdf = '<table class="report-header" cellpadding="2" cellspacing="0" style="width: 100%; border-bottom: 1px solid #000;">
 				<tr>
-					<td style="font-size: 12px; font-weight: bold;">' . $empresaNombre . '</td>
+					<td style="font-size: 18px; font-weight: bold;">' . $empresaNombre . '</td>
 					<td style="font-size: 10px; text-align: right;">' . $descripcionPeriodo . '</td>
 				</tr>
 				<tr>
