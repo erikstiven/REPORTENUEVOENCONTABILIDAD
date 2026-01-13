@@ -153,7 +153,7 @@ function consultar( $aForm='' ){
 								<td style="font-size: 8pt;"><strong>Fecha:</strong> ' . $fechaGenerado . '&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> ' . $horaGenerado . '</td>
 								<td style="font-size: 8pt; text-align:center;"><strong>Desde:</strong> ' . $desdeTexto . '</td>
 								<td style="font-size: 8pt; text-align:center;"><strong>Hasta:</strong> ' . $hastaTexto . '</td>
-								<td style="font-size: 8pt; text-align:right;"><strong>Pag:</strong> 1/1</td>
+								<td style="font-size: 8pt; text-align:right; padding-right: 2px;">Pag 1/1</td>
 							</tr>
 						</table>
 					</td>
