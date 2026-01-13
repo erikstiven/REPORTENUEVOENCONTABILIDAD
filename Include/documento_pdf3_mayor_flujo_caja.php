@@ -1,8 +1,10 @@
 <?php
 include_once('config.inc.php');
-include_once(path(DIR_INCLUDE) . 'comun.lib.php');
-
 $sesionId = isset($_GET['sesionId']) ? $_GET['sesionId'] : '';
+if (!empty($sesionId) && session_status() === PHP_SESSION_ACTIVE && session_id() !== $sesionId) {
+    session_write_close();
+    session_id($sesionId);
+}
 if (!empty($sesionId) && session_status() !== PHP_SESSION_ACTIVE) {
     session_id($sesionId);
 }
@@ -49,4 +51,7 @@ $pdf->AddPage();
 $pdf->SetFont('helvetica', '', 9);
 $pdf->writeHTML($html, true, false, true, false, '');
 
+if (ob_get_length()) {
+    ob_end_clean();
+}
 $pdf->Output('mayor_flujo_caja.pdf', 'I');
