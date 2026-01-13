@@ -12,11 +12,19 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-$tcpdfPath = path(DIR_SISTEMA) . 'contabilidad_r_mayor_flujo_caja/reader/Classes/PHPExcel/Shared/PDF/tcpdf.php';
-if (!file_exists($tcpdfPath)) {
-    $tcpdfPath = dirname(__FILE__) . '/../contabilidad_r_mayor_flujo_caja/reader/Classes/PHPExcel/Shared/PDF/tcpdf.php';
+$tcpdfCandidates = array(
+    DIR_SISTEMA . 'contabilidad_r_mayor_flujo_caja/reader/Classes/PHPExcel/Shared/PDF/tcpdf.php',
+    DIR_MODULOS . 'contabilidad_r_mayor_flujo_caja/reader/Classes/PHPExcel/Shared/PDF/tcpdf.php',
+    dirname(__FILE__) . '/../contabilidad_r_mayor_flujo_caja/reader/Classes/PHPExcel/Shared/PDF/tcpdf.php',
+);
+$tcpdfPath = '';
+foreach ($tcpdfCandidates as $candidate) {
+    if (file_exists($candidate)) {
+        $tcpdfPath = $candidate;
+        break;
+    }
 }
-if (!file_exists($tcpdfPath)) {
+if (empty($tcpdfPath)) {
     http_response_code(500);
     echo 'No se encontró la librería TCPDF requerida para generar el PDF.';
     exit;
