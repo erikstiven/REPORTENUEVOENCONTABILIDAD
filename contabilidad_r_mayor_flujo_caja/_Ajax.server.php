@@ -132,13 +132,13 @@ function consultar( $aForm='' ){
 					<td style="text-align:center; font-size: 12pt; font-weight: bold;">' . $empresaNombre . '</td>
 				</tr>
 				<tr>
-					<td style="text-align:center; font-size: 8pt; font-weight: bold;">Dirección:</td>
+					<td style="text-align:center; font-size: 8pt;">Dirección:</td>
 				</tr>
 				<tr>
 					<td style="text-align:center; font-size: 8pt;">' . $empresaDireccion . '</td>
 				</tr>
 				<tr>
-					<td style="text-align:center; font-size: 8pt; font-weight: bold;">RUC:</td>
+					<td style="text-align:center; font-size: 8pt;">RUC:</td>
 				</tr>
 				<tr>
 					<td style="text-align:center; font-size: 8pt;">' . $empresaRuc . '</td>
@@ -158,7 +158,7 @@ function consultar( $aForm='' ){
 						</table>
 					</td>
 				</tr>
-			</table>';
+			</table><br>';
 
 				$sql = "  SELECT DISTINCT (saedasi.dasi_cod_cuen ),
 				date('$fechaInicio') asto_fec_asto,   
