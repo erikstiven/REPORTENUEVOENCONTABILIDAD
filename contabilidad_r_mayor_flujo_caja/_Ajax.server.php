@@ -123,7 +123,21 @@ function consultar( $aForm='' ){
 			} else {
 				$descripcionPeriodo = 'Fechas: ' . $fechaInicioRaw . ' al ' . $fechaFinalRaw;
 			}
-			$fechaGenerado = date('d/m/Y');
+			$mesesTexto = array(
+				1 => 'ENERO',
+				2 => 'FEBRERO',
+				3 => 'MARZO',
+				4 => 'ABRIL',
+				5 => 'MAYO',
+				6 => 'JUNIO',
+				7 => 'JULIO',
+				8 => 'AGOSTO',
+				9 => 'SEPTIEMBRE',
+				10 => 'OCTUBRE',
+				11 => 'NOVIEMBRE',
+				12 => 'DICIEMBRE'
+			);
+			$fechaGenerado = date('j') . ' de ' . $mesesTexto[(int) date('n')] . ' de ' . date('Y');
 			$horaGenerado = date('H:i:s');
 			$desdeTexto = $fechaInicioRaw;
 			$hastaTexto = $fechaFinalRaw;
@@ -150,7 +164,7 @@ function consultar( $aForm='' ){
 					<td>
 						<table class="report-meta" cellpadding="0" cellspacing="0" style="width: 100%;">
 							<tr>
-								<td style="font-size: 8pt;"><strong>Fecha:</strong> ' . $fechaGenerado . '&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> ' . $horaGenerado . '</td>
+								<td style="font-size: 8pt;"><strong>Fecha:</strong> ' . $fechaGenerado . '<br><strong>Hora:</strong> ' . $horaGenerado . '</td>
 								<td style="font-size: 8pt; text-align:center;"><strong>Desde:</strong> ' . $desdeTexto . '</td>
 								<td style="font-size: 8pt; text-align:center;"><strong>Hasta:</strong> ' . $hastaTexto . '</td>
 								<td style="font-size: 8pt; text-align:right; padding-right: 2px;">Pag 1/1</td>
