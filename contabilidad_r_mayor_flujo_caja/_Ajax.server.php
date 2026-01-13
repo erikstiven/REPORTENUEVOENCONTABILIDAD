@@ -124,16 +124,16 @@ function consultar( $aForm='' ){
 			$fechaGenerado = date('d/m/Y H:i');
 			$headerPdf = '<table class="report-header" cellpadding="2" cellspacing="0" style="width: 100%; border-bottom: 1px solid #000;">
 				<tr>
-					<td style="font-size: 12px; font-weight: bold;">' . $empresaNombre . '</td>
-					<td style="font-size: 10px; text-align: right;">' . $descripcionPeriodo . '</td>
+					<td style="font-size: 10px; font-weight: bold;">' . $empresaNombre . '</td>
+					<td style="font-size: 9px; text-align: right;">' . $descripcionPeriodo . '</td>
 				</tr>
 				<tr>
-					<td style="font-size: 11px; font-weight: bold;">REPORTE MAYOR POR FLUJO DE CAJA</td>
-					<td style="font-size: 10px; text-align: right;">Sucursal: ' . $sucursalNombre . '</td>
+					<td style="font-size: 9px; font-weight: bold;">REPORTE MAYOR POR FLUJO DE CAJA</td>
+					<td style="font-size: 9px; text-align: right;">Sucursal: ' . $sucursalNombre . '</td>
 				</tr>
 				<tr>
-					<td style="font-size: 10px;">Moneda: ' . $monedaNombre . '</td>
-					<td style="font-size: 10px; text-align: right;">Generado: ' . $fechaGenerado . '</td>
+					<td style="font-size: 8px;">Moneda: ' . $monedaNombre . '</td>
+					<td style="font-size: 8px; text-align: right;">Generado: ' . $fechaGenerado . '</td>
 				</tr>
 			</table><br>';
 
@@ -252,7 +252,7 @@ function consultar( $aForm='' ){
 				//unset ($_SESSION['ACT_REPORTE']);
 			
 				$html.='</br>
-						<table class="table table-bordered table-striped table-condensed" style="width: 98%; margin-bottom: 0px; margin-left: 10px;">
+						<table class="table table-bordered table-striped table-condensed report-table" style="width: 100%; margin: 0;">
 						<tr>						
 							<td class="bg-primary" align = "center"> Fecha </td>
 							<td class="bg-primary" align = "center"> Tipo </td>
@@ -285,13 +285,13 @@ function consultar( $aForm='' ){
 							//agrege erik
 							$tipo = $oIfx->f('asto_tipo_mov');
 							//fin agrege erik
-							$html.='<tr>
-										<td class="bg-info" colspan="8"> '.$oIfx->f('cact_cod_cact').' '.$oIfx->f('cact_nom_cact').' </td>
-									</tr>
-									<tr>										
-										<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
-										<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
-									</tr>';
+									$html.='<tr>
+												<td class="bg-info" colspan="8"> '.$oIfx->f('cact_cod_cact').' '.$oIfx->f('cact_nom_cact').' </td>
+											</tr>
+											<tr class="report-saldo">											
+												<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
+												<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
+											</tr>';
 							$anterior = $oIfx->f('cact_cod_cact');
 							$cuentaAnterior = $oIfx->f('dasi_cod_cuen');
 							$mesAnterior = $oIfx->f('mes');
@@ -343,7 +343,7 @@ function consultar( $aForm='' ){
 											</tr>';
 											$saldoAnterior = $saldoCuenta;
 								} else {
-										$html.='<tr>													
+										$html.='<tr class="report-saldo">													
 													<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
 													<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
 												</tr>';
@@ -359,7 +359,7 @@ function consultar( $aForm='' ){
 								$html.='<tr>
 											<td class="bg-info" colspan="8"> '.$oIfx->f('cact_cod_cact').' '.$oIfx->f('cact_nom_cact').' </td>
 										</tr>
-										<tr>											
+										<tr class="report-saldo">										
 											<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
 											<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
 										</tr>';
@@ -373,7 +373,7 @@ function consultar( $aForm='' ){
 				}
 			}
 
-			$html.='<tr>
+			$html.='<tr class="report-total">
 						<td style="text-align:right;" colspan="5"> TOTAL GENERAL: </td>
 						<td style="text-align:right;"> '.number_format( round($sumaDebito,2),2,'.',',').'</td>
 						<td style="text-align:right;"> '.number_format( round($sumaCredito,2),2,'.',',').'</td>	
