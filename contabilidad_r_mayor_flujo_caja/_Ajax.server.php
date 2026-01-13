@@ -338,7 +338,7 @@ function consultar( $aForm='' ){
 								$saldoCuenta = $saldoAnterior + ( $oIfx->f('dasi_dml_dasi') - $oIfx->f('dasi_cml_dasi') );
 								$html.='<tr>
 											<td> </td>
-											<td colspan="7"> '.$arrayMes[$mesAnterior].' </td>
+											<td colspan="7"> <b>Mes:</b> '.$arrayMes[$mesAnterior].' </td>
 										</tr>
 										<tr>
 											<td> '.$oIfx->f('asto_fec_asto').' </td>
@@ -364,7 +364,7 @@ function consultar( $aForm='' ){
 									if ( $mesActual != $mesAnterior) {
 										$html.='<tr>
 													<td> </td>
-													<td colspan="7"> '.$arrayMes[$mesActual].' </td>
+													<td colspan="7"> <b>Mes:</b> '.$arrayMes[$mesActual].' </td>
 												</tr>';	
 
 									}
@@ -388,7 +388,7 @@ function consultar( $aForm='' ){
 										$mesAnterior = $oIfx->f('mes');	
 										$html.='<tr>
 													<td> </td>
-													<td colspan="7"> '.$arrayMes[$mesActual].' </td>
+													<td colspan="7"> <b>Mes:</b> '.$arrayMes[$mesActual].' </td>
 												</tr>';											
 								}
 
