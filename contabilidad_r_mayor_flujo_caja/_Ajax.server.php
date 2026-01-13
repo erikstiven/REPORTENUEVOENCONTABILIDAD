@@ -129,25 +129,25 @@ function consultar( $aForm='' ){
 			$hastaTexto = $fechaFinalRaw;
 			$headerPdf = '<table class="report-header" cellpadding="2" cellspacing="0" style="width: 100%; border-bottom: 1px solid #000;">
 				<tr>
-					<td style="text-align:center; font-size: 12px; font-weight: bold;">' . $empresaNombre . '</td>
+					<td style="text-align:center; font-size: 12pt; font-weight: bold;">' . $empresaNombre . '</td>
 				</tr>
 				<tr>
-					<td style="text-align:center; font-size: 9px;">' . $empresaDireccion . '</td>
+					<td style="text-align:center; font-size: 9pt;">' . $empresaDireccion . '</td>
 				</tr>
 				<tr>
-					<td style="text-align:center; font-size: 9px;">RUC: ' . $empresaRuc . '</td>
+					<td style="text-align:center; font-size: 9pt;">RUC: ' . $empresaRuc . '</td>
 				</tr>
 				<tr>
-					<td style="text-align:center; font-size: 10px; font-weight: bold;">MAYOR POR CENTRO DE ACTIVIDAD</td>
+					<td style="text-align:center; font-size: 10pt; font-weight: bold;">MAYOR POR CENTRO DE ACTIVIDAD</td>
 				</tr>
 				<tr>
 					<td>
 						<table class="report-meta" cellpadding="0" cellspacing="0" style="width: 100%;">
 							<tr>
-								<td style="font-size: 8px;">Fecha: ' . $fechaGenerado . '<br>Hora: ' . $horaGenerado . '</td>
-								<td style="font-size: 8px; text-align:center;">Desde: ' . $desdeTexto . '</td>
-								<td style="font-size: 8px; text-align:center;">Hasta: ' . $hastaTexto . '</td>
-								<td style="font-size: 8px; text-align:right;">Pag: 1/1</td>
+								<td style="font-size: 8pt;">Fecha: ' . $fechaGenerado . '<br>Hora: ' . $horaGenerado . '</td>
+								<td style="font-size: 8pt; text-align:center;">Desde: ' . $desdeTexto . '</td>
+								<td style="font-size: 8pt; text-align:center;">Hasta: ' . $hastaTexto . '</td>
+								<td style="font-size: 8pt; text-align:right;">Pag: 1/1</td>
 							</tr>
 						</table>
 					</td>
