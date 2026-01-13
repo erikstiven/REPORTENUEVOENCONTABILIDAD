@@ -279,7 +279,7 @@ function consultar( $aForm='' ){
 						<tr>						
 							<td class="bg-primary" align = "center"> Fecha </td>
 							<td class="bg-primary" align = "center"> Tipo </td>
-							<td class="bg-primary" align = "center"> No. Comprobante </td>
+							<td class="bg-primary" align = "center"> No. Comp </td>
 							<td class="bg-primary" align = "center"> Beneficiario </td>
 							<td class="bg-primary" align = "center"> Detalles </td>
 							<td class="bg-primary" align = "center"> Debito </td>

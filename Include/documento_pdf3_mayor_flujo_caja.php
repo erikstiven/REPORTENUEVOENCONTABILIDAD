@@ -34,7 +34,7 @@ require_once($tcpdfPath);
 $htmlBody = isset($_SESSION['pdf']) ? $_SESSION['pdf'] : '';
 $htmlBody = str_replace(
     'class="bg-primary"',
-    'class="bg-primary" style="border:1px solid #000;font-weight:bold;"',
+    'class="bg-primary" style="border:1px solid #000;"',
     $htmlBody
 );
 $htmlHeader = isset($_SESSION['pdf_header']) ? $_SESSION['pdf_header'] : '';
