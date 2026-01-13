@@ -40,10 +40,10 @@ $html = '<style>
     .report-header td { border: none; padding: 1px 2px; font-family: Arial, Helvetica, sans-serif; line-height: 1.15; }
     .report-meta td { border: none; padding: 0 2px; }
     .report-table td { border: none; }
-    .report-table .report-head { font-weight: bold; border-top: 1px solid #000; border-bottom: 1px solid #000; }
+    .report-table .report-head { font-weight: bold; border: 1px solid #000; }
     .report-head-left { text-align: left; }
     .report-head-center { text-align: center; }
-    .report-table .report-saldo td { border-bottom: 1px solid #000; }
+    .report-table .report-saldo td { border-bottom: none; }
     .report-table .report-total td { border-top: 1px solid #000; font-weight: bold; }
     .table-condensed td, .table-condensed th { padding: 1px 2px; }
 </style>';

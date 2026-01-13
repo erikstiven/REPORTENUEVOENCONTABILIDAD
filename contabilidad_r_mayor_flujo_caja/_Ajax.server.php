@@ -132,19 +132,25 @@ function consultar( $aForm='' ){
 					<td style="text-align:center; font-size: 12pt; font-weight: bold;">' . $empresaNombre . '</td>
 				</tr>
 				<tr>
-					<td style="text-align:center; font-size: 9pt;">' . $empresaDireccion . '</td>
+					<td style="text-align:center; font-size: 8pt; font-weight: bold;">Dirección:</td>
 				</tr>
 				<tr>
-					<td style="text-align:center; font-size: 9pt;">RUC: ' . $empresaRuc . '</td>
+					<td style="text-align:center; font-size: 8pt;">' . $empresaDireccion . '</td>
 				</tr>
 				<tr>
-					<td style="text-align:center; font-size: 10pt; font-weight: bold;">MAYOR POR CENTRO DE ACTIVIDAD</td>
+					<td style="text-align:center; font-size: 8pt; font-weight: bold;">RUC:</td>
+				</tr>
+				<tr>
+					<td style="text-align:center; font-size: 8pt;">' . $empresaRuc . '</td>
+				</tr>
+				<tr>
+					<td style="text-align:center; font-size: 10pt; font-weight: bold;">MAYOR CENTRO DE ACTIVIDAD</td>
 				</tr>
 				<tr>
 					<td>
 						<table class="report-meta" cellpadding="0" cellspacing="0" style="width: 100%;">
 							<tr>
-								<td style="font-size: 8pt;"><strong>Fecha:</strong> ' . $fechaGenerado . '<br><strong>Hora:</strong> ' . $horaGenerado . '</td>
+								<td style="font-size: 8pt;"><strong>Fecha:</strong> ' . $fechaGenerado . '&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> ' . $horaGenerado . '</td>
 								<td style="font-size: 8pt; text-align:center;"><strong>Desde:</strong> ' . $desdeTexto . '</td>
 								<td style="font-size: 8pt; text-align:center;"><strong>Hasta:</strong> ' . $hastaTexto . '</td>
 								<td style="font-size: 8pt; text-align:right;"><strong>Pag:</strong> 1/1</td>
