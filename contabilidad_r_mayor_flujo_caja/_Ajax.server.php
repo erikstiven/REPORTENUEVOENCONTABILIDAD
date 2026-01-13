@@ -103,6 +103,8 @@ function consultar( $aForm='' ){
 		$oIfx->Free();        
 		try {
 			$empresaNombre = consulta_string_func("select empr_nom_empr from saeempr where empr_cod_empr = $idempresa", 'empr_nom_empr', $oIfx, '');
+			$empresaDireccion = consulta_string_func("select empr_dir_empr from saeempr where empr_cod_empr = $idempresa", 'empr_dir_empr', $oIfx, '');
+			$empresaRuc = consulta_string_func("select empr_ruc_empr from saeempr where empr_cod_empr = $idempresa", 'empr_ruc_empr', $oIfx, '');
 			$sucursalNombre = '';
 			if (!empty($idsucursal)) {
 				$sucursalNombre = consulta_string_func("select sucu_nom_sucu from saesucu where sucu_cod_empr = $idempresa and sucu_cod_sucu = $idsucursal", 'sucu_nom_sucu', $oIfx, '');
@@ -121,19 +123,34 @@ function consultar( $aForm='' ){
 			} else {
 				$descripcionPeriodo = 'Fechas: ' . $fechaInicioRaw . ' al ' . $fechaFinalRaw;
 			}
-			$fechaGenerado = date('d/m/Y H:i');
+			$fechaGenerado = date('d/m/Y');
+			$horaGenerado = date('H:i:s');
+			$desdeTexto = $fechaInicioRaw;
+			$hastaTexto = $fechaFinalRaw;
 			$headerPdf = '<table class="report-header" cellpadding="2" cellspacing="0" style="width: 100%; border-bottom: 1px solid #000;">
 				<tr>
-					<td style="font-size: 10px; font-weight: bold;">' . $empresaNombre . '</td>
-					<td style="font-size: 8px; text-align: right;">' . $descripcionPeriodo . '</td>
+					<td style="text-align:center; font-size: 12px; font-weight: bold;">' . $empresaNombre . '</td>
 				</tr>
 				<tr>
-					<td style="font-size: 9px; font-weight: bold;">REPORTE MAYOR POR FLUJO DE CAJA</td>
-					<td style="font-size: 8px; text-align: right;">Sucursal: ' . $sucursalNombre . '</td>
+					<td style="text-align:center; font-size: 9px;">' . $empresaDireccion . '</td>
 				</tr>
 				<tr>
-					<td style="font-size: 8px;">Moneda: ' . $monedaNombre . '</td>
-					<td style="font-size: 8px; text-align: right;">Generado: ' . $fechaGenerado . '</td>
+					<td style="text-align:center; font-size: 9px;">RUC: ' . $empresaRuc . '</td>
+				</tr>
+				<tr>
+					<td style="text-align:center; font-size: 10px; font-weight: bold;">MAYOR POR CENTRO DE ACTIVIDAD</td>
+				</tr>
+				<tr>
+					<td>
+						<table class="report-meta" cellpadding="0" cellspacing="0" style="width: 100%;">
+							<tr>
+								<td style="font-size: 8px;">Fecha: ' . $fechaGenerado . '<br>Hora: ' . $horaGenerado . '</td>
+								<td style="font-size: 8px; text-align:center;">Desde: ' . $desdeTexto . '</td>
+								<td style="font-size: 8px; text-align:center;">Hasta: ' . $hastaTexto . '</td>
+								<td style="font-size: 8px; text-align:right;">Pag: 1/1</td>
+							</tr>
+						</table>
+					</td>
 				</tr>
 			</table><br>';
 

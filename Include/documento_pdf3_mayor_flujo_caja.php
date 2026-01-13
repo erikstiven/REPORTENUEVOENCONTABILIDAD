@@ -38,6 +38,7 @@ $html = '<style>
     table { border-collapse: collapse; width: 100%; }
     th, td { padding: 2px 3px; font-size: 9pt; }
     .report-header td { border: none; padding: 2px 3px; }
+    .report-meta td { border: none; padding: 0 2px; }
     .report-table td { border: none; }
     .report-table .bg-primary { background-color: #e6e6e6; font-weight: bold; text-align: center; border-top: 1px solid #000; border-bottom: 1px solid #000; }
     .report-table .bg-info { font-weight: bold; }
