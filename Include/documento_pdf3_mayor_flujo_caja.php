@@ -34,29 +34,29 @@ require_once($tcpdfPath);
 $htmlBody = isset($_SESSION['pdf']) ? $_SESSION['pdf'] : '';
 $htmlHeader = isset($_SESSION['pdf_header']) ? $_SESSION['pdf_header'] : '';
 $html = '<style>
-    body { font-family: Helvetica, Arial, sans-serif; font-size: 9pt; color: #000; }
+    body { font-family: Helvetica, Arial, sans-serif; font-size: 10pt; color: #000; }
     table { border-collapse: collapse; width: 100%; }
-    th, td { padding: 2px 3px; font-size: 9pt; }
-    .report-header td { border: none; padding: 2px; }
+    th, td { padding: 3px 4px; font-size: 10pt; }
+    .report-header td { border: none; padding: 3px 4px; }
     .report-table td { border: none; }
     .report-table .bg-primary { background-color: #e6e6e6; font-weight: bold; text-align: center; border-top: 1px solid #000; border-bottom: 1px solid #000; }
     .report-table .bg-info { font-weight: bold; }
     .report-table .report-saldo td { border-bottom: 1px solid #000; }
     .report-table .report-total td { border-top: 1px solid #000; font-weight: bold; }
-    .table-condensed td, .table-condensed th { padding: 2px 3px; }
+    .table-condensed td, .table-condensed th { padding: 3px 4px; }
 </style>';
 $html .= $htmlHeader . $htmlBody;
 
-$pdf = new TCPDF('L', 'mm', 'A4', true, 'UTF-8', false);
+$pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
 $pdf->SetCreator('REPORTENUEVOENCONTABILIDAD');
 $pdf->SetAuthor('REPORTENUEVOENCONTABILIDAD');
 $pdf->SetTitle('Mayor por Flujo de Caja');
-$pdf->SetMargins(10, 10, 10);
-$pdf->SetAutoPageBreak(true, 10);
+$pdf->SetMargins(12, 14, 12);
+$pdf->SetAutoPageBreak(true, 14);
 $pdf->setPrintHeader(false);
 $pdf->setPrintFooter(false);
 $pdf->AddPage();
-$pdf->SetFont('helvetica', '', 9);
+$pdf->SetFont('helvetica', '', 10);
 $pdf->writeHTML($html, true, false, true, false, '');
 
 if (ob_get_length()) {
