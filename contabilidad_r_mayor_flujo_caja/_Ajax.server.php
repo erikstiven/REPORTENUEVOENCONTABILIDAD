@@ -124,16 +124,16 @@ function consultar( $aForm='' ){
 			$fechaGenerado = date('d/m/Y H:i');
 			$headerPdf = '<table class="report-header" cellpadding="2" cellspacing="0" style="width: 100%; border-bottom: 1px solid #000;">
 				<tr>
-					<td style="font-size: 18px; font-weight: bold;">' . $empresaNombre . '</td>
-					<td style="font-size: 10px; text-align: right;">' . $descripcionPeriodo . '</td>
+					<td style="font-size: 10px; font-weight: bold;">' . $empresaNombre . '</td>
+					<td style="font-size: 8px; text-align: right;">' . $descripcionPeriodo . '</td>
 				</tr>
 				<tr>
-					<td style="font-size: 11px; font-weight: bold;">REPORTE MAYOR POR FLUJO DE CAJA</td>
-					<td style="font-size: 10px; text-align: right;">Sucursal: ' . $sucursalNombre . '</td>
+					<td style="font-size: 9px; font-weight: bold;">REPORTE MAYOR POR FLUJO DE CAJA</td>
+					<td style="font-size: 8px; text-align: right;">Sucursal: ' . $sucursalNombre . '</td>
 				</tr>
 				<tr>
-					<td style="font-size: 9px;">Moneda: ' . $monedaNombre . '</td>
-					<td style="font-size: 9px; text-align: right;">Generado: ' . $fechaGenerado . '</td>
+					<td style="font-size: 8px;">Moneda: ' . $monedaNombre . '</td>
+					<td style="font-size: 8px; text-align: right;">Generado: ' . $fechaGenerado . '</td>
 				</tr>
 			</table><br>';
 
@@ -252,16 +252,26 @@ function consultar( $aForm='' ){
 				//unset ($_SESSION['ACT_REPORTE']);
 			
 				$html.='</br>
-						<table class="table table-bordered table-striped table-condensed report-table" style="width: 95%; margin: 0 auto;">
+						<table class="table table-bordered table-striped table-condensed report-table" style="width: 100%; margin: 0;">
+						<colgroup>
+							<col style="width: 11%;">
+							<col style="width: 7%;">
+							<col style="width: 14%;">
+							<col style="width: 14%;">
+							<col style="width: 22%;">
+							<col style="width: 10%;">
+							<col style="width: 10%;">
+							<col style="width: 12%;">
+						</colgroup>
 						<tr>						
-							<td class="bg-primary" align = "center"> Fecha </td>
-							<td class="bg-primary" align = "center"> Tipo </td>
-							<td class="bg-primary" align = "center"> No. Comprobante </td>
-							<td class="bg-primary" align = "center"> Beneficiario </td>
-							<td class="bg-primary" align = "center"> Detalles </td>
-							<td class="bg-primary" align = "center"> Debito </td>
-							<td class="bg-primary" align = "center"> Credito </td>
-							<td class="bg-primary" align = "center"> Saldo </td>
+							<td class="bg-primary" align="center"> Fecha </td>
+							<td class="bg-primary" align="center"> Tipo </td>
+							<td class="bg-primary" align="center"> No.<br>Comprobante </td>
+							<td class="bg-primary" align="center"> Beneficiario </td>
+							<td class="bg-primary" align="center"> Detalles </td>
+							<td class="bg-primary" align="center"> Debito </td>
+							<td class="bg-primary" align="center"> Credito </td>
+							<td class="bg-primary" align="center"> Saldo </td>
 						</tr>';
 			//CENTRO DE COSTOS
 			/*if($oIfx->Query($sql)){
