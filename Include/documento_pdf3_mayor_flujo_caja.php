@@ -32,6 +32,11 @@ if (empty($tcpdfPath)) {
 require_once($tcpdfPath);
 
 $htmlBody = isset($_SESSION['pdf']) ? $_SESSION['pdf'] : '';
+$htmlBody = preg_replace(
+    '/(<tr>\\s*<td>\\s*<\\/td>\\s*<td colspan="7">)\\s*/i',
+    '$1 <b>Mes:</b> ',
+    $htmlBody
+);
 $htmlBody = str_replace(
     'class="bg-primary"',
     'class="bg-primary" style="border:1px solid #000;"',
