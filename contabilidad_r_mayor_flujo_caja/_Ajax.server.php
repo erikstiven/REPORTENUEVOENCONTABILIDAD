@@ -150,16 +150,10 @@ function consultar( $aForm='' ){
 					<td>
 						<table class="report-meta" cellpadding="0" cellspacing="0" style="width: 100%;">
 							<tr>
-								<td style="font-size: 8pt;"><strong>Fecha:</strong> ' . $fechaGenerado . '</td>
+								<td style="font-size: 8pt;"><strong>Fecha:</strong> ' . $fechaGenerado . '&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> ' . $horaGenerado . '</td>
 								<td style="font-size: 8pt; text-align:center;"><strong>Desde:</strong> ' . $desdeTexto . '</td>
 								<td style="font-size: 8pt; text-align:center;"><strong>Hasta:</strong> ' . $hastaTexto . '</td>
 								<td style="font-size: 8pt; text-align:right;"><strong>Pag:</strong> 1/1</td>
-							</tr>
-							<tr>
-								<td style="font-size: 8pt;"><strong>Hora:</strong> ' . $horaGenerado . '</td>
-								<td style="font-size: 8pt;"></td>
-								<td style="font-size: 8pt;"></td>
-								<td style="font-size: 8pt;"></td>
 							</tr>
 						</table>
 					</td>
