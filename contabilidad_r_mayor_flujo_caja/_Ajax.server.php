@@ -311,7 +311,7 @@ function consultar( $aForm='' ){
 									$html.='<tr>
 												<td class="bg-info" colspan="8"> '.$oIfx->f('cact_cod_cact').' '.$oIfx->f('cact_nom_cact').' </td>
 											</tr>
-											<tr>											
+											<tr class="report-saldo">											
 												<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
 												<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
 											</tr>';
@@ -366,7 +366,7 @@ function consultar( $aForm='' ){
 											</tr>';
 											$saldoAnterior = $saldoCuenta;
 								} else {
-										$html.='<tr>													
+										$html.='<tr class="report-saldo">													
 													<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
 													<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
 												</tr>';
@@ -382,7 +382,7 @@ function consultar( $aForm='' ){
 								$html.='<tr>
 											<td class="bg-info" colspan="8"> '.$oIfx->f('cact_cod_cact').' '.$oIfx->f('cact_nom_cact').' </td>
 										</tr>
-											<tr>										
+											<tr class="report-saldo">										
 												<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
 												<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
 											</tr>';
