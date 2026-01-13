@@ -34,17 +34,18 @@ require_once($tcpdfPath);
 $htmlBody = isset($_SESSION['pdf']) ? $_SESSION['pdf'] : '';
 $htmlHeader = isset($_SESSION['pdf_header']) ? $_SESSION['pdf_header'] : '';
 $html = '<style>
-    body { font-family: Helvetica, Arial, sans-serif; font-size: 9pt; color: #000; }
+    body { font-family: Arial, Helvetica, sans-serif; font-size: 8pt; color: #000; }
     table { border-collapse: collapse; width: 100%; }
-    th, td { padding: 2px 3px; font-size: 9pt; }
-    .report-header td { border: none; padding: 2px 3px; font-family: Helvetica, Arial, sans-serif; line-height: 1.2; }
+    th, td { padding: 1px 2px; font-size: 8pt; }
+    .report-header td { border: none; padding: 1px 2px; font-family: Arial, Helvetica, sans-serif; line-height: 1.15; }
     .report-meta td { border: none; padding: 0 2px; }
     .report-table td { border: none; }
-    .report-table .bg-primary { background-color: #e6e6e6; font-weight: bold; text-align: center; border-top: 1px solid #000; border-bottom: 1px solid #000; }
-    .report-table .bg-info { font-weight: bold; }
+    .report-table .report-head { font-weight: bold; border-top: 1px solid #000; border-bottom: 1px solid #000; }
+    .report-head-left { text-align: left; }
+    .report-head-center { text-align: center; }
     .report-table .report-saldo td { border-bottom: 1px solid #000; }
     .report-table .report-total td { border-top: 1px solid #000; font-weight: bold; }
-    .table-condensed td, .table-condensed th { padding: 2px 3px; }
+    .table-condensed td, .table-condensed th { padding: 1px 2px; }
 </style>';
 $html .= $htmlHeader . $htmlBody;
 
@@ -57,7 +58,7 @@ $pdf->SetAutoPageBreak(true, 10);
 $pdf->setPrintHeader(false);
 $pdf->setPrintFooter(false);
 $pdf->AddPage();
-$pdf->SetFont('helvetica', '', 9);
+$pdf->SetFont('helvetica', '', 8);
 $pdf->writeHTML($html, true, false, true, false, '');
 
 if (ob_get_length()) {

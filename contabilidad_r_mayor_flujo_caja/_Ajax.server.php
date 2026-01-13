@@ -127,7 +127,7 @@ function consultar( $aForm='' ){
 			$horaGenerado = date('H:i:s');
 			$desdeTexto = $fechaInicioRaw;
 			$hastaTexto = $fechaFinalRaw;
-			$headerPdf = '<table class="report-header" cellpadding="2" cellspacing="0" style="width: 100%; border-bottom: 1px solid #000;">
+			$headerPdf = '<table class="report-header" cellpadding="0" cellspacing="0" style="width: 100%;">
 				<tr>
 					<td style="text-align:center; font-size: 12pt; font-weight: bold;">' . $empresaNombre . '</td>
 				</tr>
@@ -144,15 +144,15 @@ function consultar( $aForm='' ){
 					<td>
 						<table class="report-meta" cellpadding="0" cellspacing="0" style="width: 100%;">
 							<tr>
-								<td style="font-size: 8pt;">Fecha: ' . $fechaGenerado . '<br>Hora: ' . $horaGenerado . '</td>
-								<td style="font-size: 8pt; text-align:center;">Desde: ' . $desdeTexto . '</td>
-								<td style="font-size: 8pt; text-align:center;">Hasta: ' . $hastaTexto . '</td>
-								<td style="font-size: 8pt; text-align:right;">Pag: 1/1</td>
+								<td style="font-size: 8pt;"><strong>Fecha:</strong> ' . $fechaGenerado . '<br><strong>Hora:</strong> ' . $horaGenerado . '</td>
+								<td style="font-size: 8pt; text-align:center;"><strong>Desde:</strong> ' . $desdeTexto . '</td>
+								<td style="font-size: 8pt; text-align:center;"><strong>Hasta:</strong> ' . $hastaTexto . '</td>
+								<td style="font-size: 8pt; text-align:right;"><strong>Pag:</strong> 1/1</td>
 							</tr>
 						</table>
 					</td>
 				</tr>
-			</table><br>';
+			</table>';
 
 				$sql = "  SELECT DISTINCT (saedasi.dasi_cod_cuen ),
 				date('$fechaInicio') asto_fec_asto,   
@@ -268,8 +268,8 @@ function consultar( $aForm='' ){
 				//var_dump ($arrayDatos); exit;
 				//unset ($_SESSION['ACT_REPORTE']);
 			
-				$html.='</br>
-						<table class="table table-bordered table-striped table-condensed report-table" style="width: 100%; margin: 0;">
+					$html.='</br>
+						<table class="table table-condensed report-table" style="width: 100%; margin: 0;">
 						<colgroup>
 							<col style="width: 11%;">
 							<col style="width: 7%;">
@@ -281,14 +281,14 @@ function consultar( $aForm='' ){
 							<col style="width: 12%;">
 						</colgroup>
 						<tr>						
-							<td class="bg-primary" align="center"> Fecha </td>
-							<td class="bg-primary" align="center"> Tipo </td>
-							<td class="bg-primary" align="center"> No.<br>Comprobante </td>
-							<td class="bg-primary" align="center"> Beneficiario </td>
-							<td class="bg-primary" align="center"> Detalles </td>
-							<td class="bg-primary" align="center"> Debito </td>
-							<td class="bg-primary" align="center"> Credito </td>
-							<td class="bg-primary" align="center"> Saldo </td>
+							<td class="report-head report-head-left"> Fecha </td>
+							<td class="report-head report-head-center"> Tipo </td>
+							<td class="report-head report-head-center"> No Comp </td>
+							<td class="report-head report-head-left"> Beneficiario </td>
+							<td class="report-head report-head-left"> Detalle </td>
+							<td class="report-head report-head-center"> Debito </td>
+							<td class="report-head report-head-center"> Credito </td>
+							<td class="report-head report-head-center"> Saldo </td>
 						</tr>';
 			//CENTRO DE COSTOS
 			/*if($oIfx->Query($sql)){
