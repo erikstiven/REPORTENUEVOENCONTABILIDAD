@@ -32,6 +32,11 @@ if (empty($tcpdfPath)) {
 require_once($tcpdfPath);
 
 $htmlBody = isset($_SESSION['pdf']) ? $_SESSION['pdf'] : '';
+$htmlBody = str_replace(
+    'class="bg-primary"',
+    'class="bg-primary" style="border:1px solid #000;font-weight:bold;"',
+    $htmlBody
+);
 $htmlHeader = isset($_SESSION['pdf_header']) ? $_SESSION['pdf_header'] : '';
 $html = '<style>
     body { font-family: Arial, Helvetica, sans-serif; font-size: 8pt; color: #000; }
@@ -43,10 +48,9 @@ $html = '<style>
     .report-table .report-head { font-weight: normal; border: 1px solid #000; font-size: 9pt; }
     .report-head-left { text-align: left; }
     .report-head-center { text-align: center; }
-    .table-bordered tr:first-child td { border: 1px solid #000; font-weight: bold; }
     .report-saldo,
-    .report-saldo td { font-weight: bold; }
-    .report-table .bg-info { font-weight: bold; }
+    .report-saldo td { font-weight: bold !important; }
+    .bg-info { font-weight: bold; }
     .report-table .report-total td { border-top: 1px solid #000; font-weight: bold; }
     .table-condensed td, .table-condensed th { padding: 1px 2px; }
 </style>';
