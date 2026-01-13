@@ -113,7 +113,7 @@
 
     function imprimirPdf() {
         var pagina = '../../Include/documento_pdf3_mayor_flujo_caja.php?sesionId=<?= session_id() ?>';
-        window.open(pagina, '_blank');
+        window.open(pagina, '_blank', 'noopener,noreferrer');
     }
 </script>
 <body>

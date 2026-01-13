@@ -2,8 +2,6 @@
 include_once('config.inc.php');
 include_once(path(DIR_INCLUDE) . 'comun.lib.php');
 
-require_once('../contabilidad_r_mayor_flujo_caja/reader/Classes/PHPExcel/Shared/PDF/tcpdf.php');
-
 $sesionId = isset($_GET['sesionId']) ? $_GET['sesionId'] : '';
 if (!empty($sesionId) && session_status() !== PHP_SESSION_ACTIVE) {
     session_id($sesionId);
@@ -11,6 +9,17 @@ if (!empty($sesionId) && session_status() !== PHP_SESSION_ACTIVE) {
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
+
+$tcpdfPath = path(DIR_SISTEMA) . 'contabilidad_r_mayor_flujo_caja/reader/Classes/PHPExcel/Shared/PDF/tcpdf.php';
+if (!file_exists($tcpdfPath)) {
+    $tcpdfPath = dirname(__FILE__) . '/../contabilidad_r_mayor_flujo_caja/reader/Classes/PHPExcel/Shared/PDF/tcpdf.php';
+}
+if (!file_exists($tcpdfPath)) {
+    http_response_code(500);
+    echo 'No se encontró la librería TCPDF requerida para generar el PDF.';
+    exit;
+}
+require_once($tcpdfPath);
 
 $htmlBody = isset($_SESSION['pdf']) ? $_SESSION['pdf'] : '';
 $htmlHeader = isset($_SESSION['pdf_header']) ? $_SESSION['pdf_header'] : '';
