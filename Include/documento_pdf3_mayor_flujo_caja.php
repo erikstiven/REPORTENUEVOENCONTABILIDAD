@@ -43,7 +43,8 @@ $html = '<style>
     .report-table .report-head { font-weight: normal; border: 1px solid #000; font-size: 9pt; }
     .report-head-left { text-align: left; }
     .report-head-center { text-align: center; }
-    .table-bordered .bg-primary { border: 1px solid #000; font-weight: bold; }
+    .bg-primary { border: 1px solid #000; font-weight: bold; }
+    .report-saldo,
     .report-saldo td { font-weight: bold; }
     .report-table .bg-info { font-weight: bold; }
     .report-table .report-total td { border-top: 1px solid #000; font-weight: bold; }
