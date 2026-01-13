@@ -51,7 +51,7 @@ $html = '<style>
     .report-saldo,
     .report-saldo td { font-weight: bold !important; }
     .bg-info { font-weight: bold; }
-    .report-table .report-total td { border-top: 1px solid #000; font-weight: bold; }
+    .report-total td { border-top: 1px solid #000; font-weight: bold; }
     .table-condensed td, .table-condensed th { padding: 1px 2px; }
 </style>';
 $html .= $htmlHeader . $htmlBody;
