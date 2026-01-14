@@ -123,7 +123,21 @@ function consultar( $aForm='' ){
 			} else {
 				$descripcionPeriodo = 'Fechas: ' . $fechaInicioRaw . ' al ' . $fechaFinalRaw;
 			}
-			$fechaGenerado = date('d/m/Y');
+			$mesesTexto = array(
+				1 => 'ENERO',
+				2 => 'FEBRERO',
+				3 => 'MARZO',
+				4 => 'ABRIL',
+				5 => 'MAYO',
+				6 => 'JUNIO',
+				7 => 'JULIO',
+				8 => 'AGOSTO',
+				9 => 'SEPTIEMBRE',
+				10 => 'OCTUBRE',
+				11 => 'NOVIEMBRE',
+				12 => 'DICIEMBRE'
+			);
+			$fechaGenerado = date('j') . ' de ' . $mesesTexto[(int) date('n')] . ' de ' . date('Y');
 			$horaGenerado = date('H:i:s');
 			$desdeTexto = $fechaInicioRaw;
 			$hastaTexto = $fechaFinalRaw;
@@ -147,13 +161,22 @@ function consultar( $aForm='' ){
 					<td style="text-align:center; font-size: 10pt; font-weight: bold;">MAYOR CENTRO DE ACTIVIDAD</td>
 				</tr>
 				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
 					<td>
-						<table class="report-meta" cellpadding="0" cellspacing="0" style="width: 100%;">
+						<table class="report-meta" cellpadding="0" cellspacing="0" style="width: 98%; margin-left: 10px;">
 							<tr>
-								<td style="font-size: 8pt;"><strong>Fecha:</strong> ' . $fechaGenerado . '&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> ' . $horaGenerado . '</td>
+								<td style="font-size: 8pt;"><strong>Fecha:</strong> ' . $fechaGenerado . '</td>
 								<td style="font-size: 8pt; text-align:center;"><strong>Desde:</strong> ' . $desdeTexto . '</td>
 								<td style="font-size: 8pt; text-align:center;"><strong>Hasta:</strong> ' . $hastaTexto . '</td>
-								<td style="font-size: 8pt; text-align:right;"><strong>Pag:</strong> 1/1</td>
+								<td style="font-size: 8pt; text-align:right;">Pag 1/1</td>
+							</tr>
+							<tr>
+								<td style="font-size: 8pt;"><strong>Hora:</strong> ' . $horaGenerado . '</td>
+								<td style="font-size: 8pt;">&nbsp;</td>
+								<td style="font-size: 8pt;">&nbsp;</td>
+								<td style="font-size: 8pt;">&nbsp;</td>
 							</tr>
 						</table>
 					</td>
@@ -279,7 +302,7 @@ function consultar( $aForm='' ){
 						<tr>						
 							<td class="bg-primary" align = "center"> Fecha </td>
 							<td class="bg-primary" align = "center"> Tipo </td>
-							<td class="bg-primary" align = "center"> No. Comprobante </td>
+							<td class="bg-primary" align = "center"> No. Comp </td>
 							<td class="bg-primary" align = "center"> Beneficiario </td>
 							<td class="bg-primary" align = "center"> Detalles </td>
 							<td class="bg-primary" align = "center"> Debito </td>
@@ -311,9 +334,9 @@ function consultar( $aForm='' ){
 									$html.='<tr>
 												<td class="bg-info" colspan="8"> '.$oIfx->f('cact_cod_cact').' '.$oIfx->f('cact_nom_cact').' </td>
 											</tr>
-											<tr>											
-												<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
-												<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
+											<tr class="report-saldo">											
+												<td class="report-saldo" colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
+												<td class="report-saldo" colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
 											</tr>';
 							$anterior = $oIfx->f('cact_cod_cact');
 							$cuentaAnterior = $oIfx->f('dasi_cod_cuen');
@@ -366,9 +389,9 @@ function consultar( $aForm='' ){
 											</tr>';
 											$saldoAnterior = $saldoCuenta;
 								} else {
-										$html.='<tr>													
-													<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
-													<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
+										$html.='<tr class="report-saldo">													
+													<td class="report-saldo" colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
+													<td class="report-saldo" colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
 												</tr>';
 										$saldoAnterior = $oIfx->f('saldo_anterior');
 										$mesAnterior = $oIfx->f('mes');	
@@ -382,9 +405,9 @@ function consultar( $aForm='' ){
 								$html.='<tr>
 											<td class="bg-info" colspan="8"> '.$oIfx->f('cact_cod_cact').' '.$oIfx->f('cact_nom_cact').' </td>
 										</tr>
-											<tr>										
-												<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
-												<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
+											<tr class="report-saldo">										
+												<td class="report-saldo" colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
+												<td class="report-saldo" colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
 											</tr>';
 							}
 							$anterior = $oIfx->f('cact_cod_cact');

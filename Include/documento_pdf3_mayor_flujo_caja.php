@@ -32,21 +32,36 @@ if (empty($tcpdfPath)) {
 require_once($tcpdfPath);
 
 $htmlBody = isset($_SESSION['pdf']) ? $_SESSION['pdf'] : '';
+$htmlBody = preg_replace_callback(
+    '/<tr>\\s*<td>\\s*<\\/td>\\s*<td colspan="7"[^>]*>\\s*(?:<b>Mes:<\\/b>\\s*)?([^<]*)\\s*<\\/td>\\s*<\\/tr>/i',
+    function ($matches) {
+        $mesTexto = strtoupper(trim($matches[1]));
+        return '<tr><td colspan="8" style="text-align:left; padding-left:2px;"><b>Mes:</b> ' . $mesTexto . '</td></tr>';
+    },
+    $htmlBody
+);
+$htmlBody = str_replace(
+    'class="bg-primary"',
+    'class="bg-primary" style="border:1px solid #000;"',
+    $htmlBody
+);
 $htmlHeader = isset($_SESSION['pdf_header']) ? $_SESSION['pdf_header'] : '';
 $html = '<style>
     body { font-family: Arial, Helvetica, sans-serif; font-size: 8pt; color: #000; }
     table { border-collapse: collapse; width: 100%; }
-    th, td { padding: 1px 2px; font-size: 8pt; }
+    th, td { padding: 2px 2px; font-size: 8pt; }
     .report-header td { border: none; padding: 1px 2px; font-family: Arial, Helvetica, sans-serif; line-height: 1.15; }
     .report-meta td { border: none; padding: 0 2px; }
+    .table td, .table th { line-height: 1.5; padding-top: 3px; padding-bottom: 3px; }
     .report-table td { border: none; }
     .report-table .report-head { font-weight: normal; border: 1px solid #000; font-size: 9pt; }
     .report-head-left { text-align: left; }
     .report-head-center { text-align: center; }
-    .report-table .report-saldo td { border-bottom: none; font-weight: bold; }
-    .report-table .bg-info { font-weight: bold; }
-    .report-table .report-total td { border-top: 1px solid #000; font-weight: bold; }
-    .table-condensed td, .table-condensed th { padding: 1px 2px; }
+    .report-saldo,
+    .report-saldo td { font-weight: bold !important; }
+    .bg-info { font-weight: bold; }
+    .report-total td { border-top: 1px solid #000; font-weight: normal; }
+    .table-condensed td, .table-condensed th { padding: 3px 2px; line-height: 1.5; }
 </style>';
 $html .= $htmlHeader . $htmlBody;
 
@@ -54,6 +69,8 @@ $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
 $pdf->SetCreator('REPORTENUEVOENCONTABILIDAD');
 $pdf->SetAuthor('REPORTENUEVOENCONTABILIDAD');
 $pdf->SetTitle('Mayor por Flujo de Caja');
+$pdf->setCellHeightRatio(1.5);
+$pdf->SetCellPadding(1.2);
 $pdf->SetMargins(10, 10, 10);
 $pdf->SetAutoPageBreak(true, 10);
 $pdf->setPrintHeader(false);
