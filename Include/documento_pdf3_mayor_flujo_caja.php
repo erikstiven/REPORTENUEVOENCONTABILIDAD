@@ -32,9 +32,12 @@ if (empty($tcpdfPath)) {
 require_once($tcpdfPath);
 
 $htmlBody = isset($_SESSION['pdf']) ? $_SESSION['pdf'] : '';
-$htmlBody = preg_replace(
+$htmlBody = preg_replace_callback(
     '/<tr>\\s*<td>\\s*<\\/td>\\s*<td colspan="7"[^>]*>\\s*(?:<b>Mes:<\\/b>\\s*)?([^<]*)\\s*<\\/td>\\s*<\\/tr>/i',
-    '<tr><td colspan="8" style="text-align:left; padding-left:2px;"><b>Mes:</b> $1</td></tr>',
+    function ($matches) {
+        $mesTexto = strtoupper(trim($matches[1]));
+        return '<tr><td colspan="8" style="text-align:left; padding-left:2px;"><b>Mes:</b> ' . $mesTexto . '</td></tr>';
+    },
     $htmlBody
 );
 $htmlBody = str_replace(
@@ -49,7 +52,7 @@ $html = '<style>
     th, td { padding: 1px 2px; font-size: 8pt; }
     .report-header td { border: none; padding: 1px 2px; font-family: Arial, Helvetica, sans-serif; line-height: 1.15; }
     .report-meta td { border: none; padding: 0 2px; }
-    .report-table td { border: none; }
+    .report-table td { border: none; line-height: 1.2; }
     .report-table .report-head { font-weight: normal; border: 1px solid #000; font-size: 9pt; }
     .report-head-left { text-align: left; }
     .report-head-center { text-align: center; }
