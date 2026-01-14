@@ -33,8 +33,8 @@ require_once($tcpdfPath);
 
 $htmlBody = isset($_SESSION['pdf']) ? $_SESSION['pdf'] : '';
 $htmlBody = preg_replace(
-    '/(<tr>\\s*<td>\\s*<\\/td>\\s*<td colspan="7">)\\s*/i',
-    '$1 <b>Mes:</b> ',
+    '/(<tr>\\s*<td>\\s*<\\/td>\\s*<td colspan="7")(>\\s*)/i',
+    '$1 style="text-align:left;"$2<b>Mes:</b> ',
     $htmlBody
 );
 $htmlBody = str_replace(
