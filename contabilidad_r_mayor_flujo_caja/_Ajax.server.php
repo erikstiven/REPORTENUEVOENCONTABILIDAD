@@ -30,7 +30,7 @@ function consultar( $aForm='' ){
 		$oReturn = new xajaxResponse();
         $user_web   = $_SESSION['U_ID']; 
 		$idempresa   = $aForm['empresa'];
-	    $idsucursal  = $aForm['sucursal'];
+	    $idsucursal  = isset($aForm['sucursal']) ? $aForm['sucursal'] : '';
 		$anio        = $aForm['anio'];        
         $mes         = $aForm['mes'];
         $mes_fin     = $aForm['mes_fin'];
@@ -38,11 +38,14 @@ function consultar( $aForm='' ){
 		$cuenta_fin  = $aForm['cuenta_fin'];
         $cact_ini    = $aForm['ccostos_ini'];
 		$cact_fin    = $aForm['ccostos_fin'];
+		$moneda      = isset($aForm['moneda']) ? $aForm['moneda'] : '';
 		
 		$periodo	= $aForm['periodo'];
 		$fechas		= $aForm['fechas'];
-		$fechaInicio= fecha_informix_func($aForm['fechaInicio']);
-		$fechaFinal	= fecha_informix_func($aForm['fechaFinal']);
+		$fechaInicioRaw = isset($aForm['fechaInicio']) ? $aForm['fechaInicio'] : '';
+		$fechaFinalRaw = isset($aForm['fechaFinal']) ? $aForm['fechaFinal'] : '';
+		$fechaInicio= fecha_informix_func($fechaInicioRaw);
+		$fechaFinal	= fecha_informix_func($fechaFinalRaw);
 		
 		//echo 'Periodo: '.$periodo.' - Fechas: '.$fechas; exit;		
 		$sql = "select prdo_cod_ejer, prdo_fec_ini, prdo_nom_prdo 
@@ -98,7 +101,64 @@ function consultar( $aForm='' ){
 					}
 				}	
 		$oIfx->Free();        
-        try {
+		try {
+			$empresaNombre = consulta_string_func("select empr_nom_empr from saeempr where empr_cod_empr = $idempresa", 'empr_nom_empr', $oIfx, '');
+			$empresaDireccion = consulta_string_func("select empr_dir_empr from saeempr where empr_cod_empr = $idempresa", 'empr_dir_empr', $oIfx, '');
+			$empresaRuc = consulta_string_func("select empr_ruc_empr from saeempr where empr_cod_empr = $idempresa", 'empr_ruc_empr', $oIfx, '');
+			$sucursalNombre = '';
+			if (!empty($idsucursal)) {
+				$sucursalNombre = consulta_string_func("select sucu_nom_sucu from saesucu where sucu_cod_empr = $idempresa and sucu_cod_sucu = $idsucursal", 'sucu_nom_sucu', $oIfx, '');
+			}
+			if (empty($sucursalNombre) && !empty($_SESSION['U_SUCURSAL'])) {
+				$sucuSesion = $_SESSION['U_SUCURSAL'];
+				$sucursalNombre = consulta_string_func("select sucu_nom_sucu from saesucu where sucu_cod_empr = $idempresa and sucu_cod_sucu = $sucuSesion", 'sucu_nom_sucu', $oIfx, '');
+			}
+			$monedaNombre = '';
+			if (!empty($moneda)) {
+				$monedaNombre = consulta_string_func("select mone_des_mone from saemone where mone_cod_empr = $idempresa and mone_cod_mone = '$moneda'", 'mone_des_mone', $oIfx, '');
+			}
+			$descripcionPeriodo = '';
+			if ($periodo == "A") {
+				$descripcionPeriodo = 'Periodo: ' . $nombreMesI . ' ' . $anio . ' - ' . $nombreMesF . ' ' . $anio;
+			} else {
+				$descripcionPeriodo = 'Fechas: ' . $fechaInicioRaw . ' al ' . $fechaFinalRaw;
+			}
+			$fechaGenerado = date('d/m/Y');
+			$horaGenerado = date('H:i:s');
+			$desdeTexto = $fechaInicioRaw;
+			$hastaTexto = $fechaFinalRaw;
+			$headerPdf = '<table class="report-header" cellpadding="0" cellspacing="0" style="width: 100%;">
+				<tr>
+					<td style="text-align:center; font-size: 12pt; font-weight: bold;">' . $empresaNombre . '</td>
+				</tr>
+				<tr>
+					<td style="text-align:center; font-size: 8pt;">Dirección:</td>
+				</tr>
+				<tr>
+					<td style="text-align:center; font-size: 8pt;">' . $empresaDireccion . '</td>
+				</tr>
+				<tr>
+					<td style="text-align:center; font-size: 8pt;">RUC:</td>
+				</tr>
+				<tr>
+					<td style="text-align:center; font-size: 8pt;">' . $empresaRuc . '</td>
+				</tr>
+				<tr>
+					<td style="text-align:center; font-size: 10pt; font-weight: bold;">MAYOR CENTRO DE ACTIVIDAD</td>
+				</tr>
+				<tr>
+					<td>
+						<table class="report-meta" cellpadding="0" cellspacing="0" style="width: 100%;">
+							<tr>
+								<td style="font-size: 8pt;"><strong>Fecha:</strong> ' . $fechaGenerado . '&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> ' . $horaGenerado . '</td>
+								<td style="font-size: 8pt; text-align:center;"><strong>Desde:</strong> ' . $desdeTexto . '</td>
+								<td style="font-size: 8pt; text-align:center;"><strong>Hasta:</strong> ' . $hastaTexto . '</td>
+								<td style="font-size: 8pt; text-align:right;"><strong>Pag:</strong> 1/1</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table><br>';
 
 				$sql = "  SELECT DISTINCT (saedasi.dasi_cod_cuen ),
 				date('$fechaInicio') asto_fec_asto,   
@@ -214,7 +274,7 @@ function consultar( $aForm='' ){
 				//var_dump ($arrayDatos); exit;
 				//unset ($_SESSION['ACT_REPORTE']);
 			
-				$html.='</br>
+					$html.='</br>
 						<table class="table table-bordered table-striped table-condensed" style="width: 98%; margin-bottom: 0px; margin-left: 10px;">
 						<tr>						
 							<td class="bg-primary" align = "center"> Fecha </td>
@@ -248,13 +308,13 @@ function consultar( $aForm='' ){
 							//agrege erik
 							$tipo = $oIfx->f('asto_tipo_mov');
 							//fin agrege erik
-							$html.='<tr>
-										<td class="bg-info" colspan="8"> '.$oIfx->f('cact_cod_cact').' '.$oIfx->f('cact_nom_cact').' </td>
-									</tr>
-									<tr>										
-										<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
-										<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
-									</tr>';
+									$html.='<tr>
+												<td class="bg-info" colspan="8"> '.$oIfx->f('cact_cod_cact').' '.$oIfx->f('cact_nom_cact').' </td>
+											</tr>
+											<tr>											
+												<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
+												<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
+											</tr>';
 							$anterior = $oIfx->f('cact_cod_cact');
 							$cuentaAnterior = $oIfx->f('dasi_cod_cuen');
 							$mesAnterior = $oIfx->f('mes');
@@ -322,10 +382,10 @@ function consultar( $aForm='' ){
 								$html.='<tr>
 											<td class="bg-info" colspan="8"> '.$oIfx->f('cact_cod_cact').' '.$oIfx->f('cact_nom_cact').' </td>
 										</tr>
-										<tr>											
-											<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
-											<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
-										</tr>';
+											<tr>										
+												<td colspan="4"> '.$oIfx->f('dasi_cod_cuen').' '.$arrayCuenta[$oIfx->f('dasi_cod_cuen')].' </td>
+												<td colspan="4" style="text-align:right;"> SALDO ANTERIOR: '.number_format( round($oIfx->f('saldo_anterior'),2),2,'.',',').' </td>
+											</tr>';
 							}
 							$anterior = $oIfx->f('cact_cod_cact');
 							$cuentaAnterior = $oIfx->f('dasi_cod_cuen');
@@ -336,7 +396,7 @@ function consultar( $aForm='' ){
 				}
 			}
 
-			$html.='<tr>
+			$html.='<tr class="report-total">
 						<td style="text-align:right;" colspan="5"> TOTAL GENERAL: </td>
 						<td style="text-align:right;"> '.number_format( round($sumaDebito,2),2,'.',',').'</td>
 						<td style="text-align:right;"> '.number_format( round($sumaCredito,2),2,'.',',').'</td>	
@@ -354,8 +414,9 @@ function consultar( $aForm='' ){
         //unset($_SESSION['sHtml_det']);
         //$_SESSION['sHtml_det'] = $html;
 
-        unset($_SESSION['pdf']);    
-        $_SESSION['pdf'] = $html;
+		unset($_SESSION['pdf']);    
+		$_SESSION['pdf'] = $html;
+		$_SESSION['pdf_header'] = $headerPdf;
 
         $oReturn->script("jsRemoveWindowLoad();");
         return $oReturn;
