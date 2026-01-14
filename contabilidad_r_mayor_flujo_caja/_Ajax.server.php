@@ -161,6 +161,9 @@ function consultar( $aForm='' ){
 					<td style="text-align:center; font-size: 10pt; font-weight: bold;">MAYOR CENTRO DE ACTIVIDAD</td>
 				</tr>
 				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
 					<td>
 						<table class="report-meta" cellpadding="0" cellspacing="0" style="width: 98%; margin-left: 10px;">
 							<tr>
