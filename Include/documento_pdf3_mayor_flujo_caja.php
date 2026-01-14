@@ -34,7 +34,7 @@ require_once($tcpdfPath);
 $htmlBody = isset($_SESSION['pdf']) ? $_SESSION['pdf'] : '';
 $htmlBody = preg_replace(
     '/(<tr>\\s*<td>\\s*<\\/td>\\s*<td colspan="7")(>\\s*)/i',
-    '$1 style="text-align:left;"$2<b>Mes:</b> ',
+    '$1 style="text-align:left; padding-left:2px;"$2<b>Mes:</b> ',
     $htmlBody
 );
 $htmlBody = str_replace(
@@ -56,7 +56,7 @@ $html = '<style>
     .report-saldo,
     .report-saldo td { font-weight: bold !important; }
     .bg-info { font-weight: bold; }
-    .report-total td { border-top: 1px solid #000; font-weight: bold; }
+    .report-total td { border-top: 1px solid #000; font-weight: normal; }
     .table-condensed td, .table-condensed th { padding: 1px 2px; }
 </style>';
 $html .= $htmlHeader . $htmlBody;
