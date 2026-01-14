@@ -69,6 +69,8 @@ $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
 $pdf->SetCreator('REPORTENUEVOENCONTABILIDAD');
 $pdf->SetAuthor('REPORTENUEVOENCONTABILIDAD');
 $pdf->SetTitle('Mayor por Flujo de Caja');
+$pdf->setCellHeightRatio(1.5);
+$pdf->SetCellPadding(1.2);
 $pdf->SetMargins(10, 10, 10);
 $pdf->SetAutoPageBreak(true, 10);
 $pdf->setPrintHeader(false);
