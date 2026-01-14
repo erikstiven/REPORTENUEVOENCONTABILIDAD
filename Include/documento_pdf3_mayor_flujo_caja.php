@@ -52,7 +52,8 @@ $html = '<style>
     th, td { padding: 1px 2px; font-size: 8pt; }
     .report-header td { border: none; padding: 1px 2px; font-family: Arial, Helvetica, sans-serif; line-height: 1.15; }
     .report-meta td { border: none; padding: 0 2px; }
-    .report-table td { border: none; line-height: 1.35; }
+    .table td, .table th { line-height: 1.35; }
+    .report-table td { border: none; }
     .report-table .report-head { font-weight: normal; border: 1px solid #000; font-size: 9pt; }
     .report-head-left { text-align: left; }
     .report-head-center { text-align: center; }
@@ -60,7 +61,7 @@ $html = '<style>
     .report-saldo td { font-weight: bold !important; }
     .bg-info { font-weight: bold; }
     .report-total td { border-top: 1px solid #000; font-weight: normal; }
-    .table-condensed td, .table-condensed th { padding: 1px 2px; }
+    .table-condensed td, .table-condensed th { padding: 2px 2px; line-height: 1.35; }
 </style>';
 $html .= $htmlHeader . $htmlBody;
 
